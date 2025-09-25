@@ -1,0 +1,22 @@
+[project]
+name = "llm-course"
+version = "0.1.0"
+description = "3-Week LLM Course (6 Lessons) — Kids Edition (Advanced)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "LLM Course Maintainers" }
+]
+dependencies = [
+    "accelerate",
+    "datasets",
+    "ipywidgets",
+    "jupyterlab",
+    "matplotlib",
+    "nbformat",
+    "numpy",
+    "torch",
+    "transformers"
+]
+
+[tool.uv]
