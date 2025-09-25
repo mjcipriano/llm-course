@@ -1,0 +1,4 @@
+TITLE: Animal Facts – Friendly Zoo Log
+Dogs wag tails and learn patterns quickly. Falcons dive fast; cheetahs sprint on land.
+Dolphins communicate with clicks and whistles. Red pandas nap in trees.
+In this notebook, we teach a model to predict the next word in sentences about animals.
