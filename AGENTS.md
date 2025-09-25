@@ -29,3 +29,4 @@
 - Double-check that code cells execute in order without hidden state; restart-and-run should work.
 - Include brief definitions for new jargon at first introduction, and cross-link to earlier lessons when helpful.
 - Proofread Markdown for typos, consistent punctuation, and accessible formatting (lists, tables, callouts when appropriate).
+- 
