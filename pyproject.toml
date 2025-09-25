@@ -13,10 +13,11 @@ dependencies = [
     "ipywidgets",
     "jupyterlab",
     "matplotlib",
+    "nbconvert>=7.16.6",
     "nbformat",
     "numpy",
     "torch",
-    "transformers"
+    "transformers",
 ]
 
 [build-system]
