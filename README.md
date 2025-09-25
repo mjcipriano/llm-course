@@ -22,19 +22,35 @@ Every lesson is a Jupyter notebook under `notebooks/` with:
 Editable corpora are under `data/`—add your own stories (space, animals/dogs, Minecraft)!
 
 ## Setup
-Recommended Python 3.10+ with `pip`. Suggested installs in `environment.txt`:
-```
-pip install numpy matplotlib ipywidgets nbformat
-pip install torch --index-url https://download.pytorch.org/whl/cpu
-pip install transformers datasets accelerate  # for Lesson 5
-```
-> On GPU machines, install the appropriate PyTorch build.
+All dependencies are managed with [uv](https://github.com/astral-sh/uv), which works on Windows, macOS, and Linux.
+
+1. **Install uv**
+   - **Linux/macOS**
+     ```bash
+     curl -LsSf https://astral.sh/uv/install.sh | sh
+     ```
+   - **Windows (PowerShell)**
+     ```powershell
+     irm https://astral.sh/uv/install.ps1 | iex
+     ```
+   After installation, restart your shell so that `uv` is on your `PATH`.
+
+2. **Create the environment** (from the repository root)
+   ```bash
+   uv sync
+   ```
+   This installs Python (if needed) and resolves all runtime dependencies defined in `pyproject.toml` into a local `.venv/` folder.
+
+3. *(Optional)* If you prefer to activate the environment manually, use:
+   - **Linux/macOS**: `source .venv/bin/activate`
+   - **Windows (PowerShell)**: `.venv\Scripts\Activate.ps1`
 
 ## Running
-```
-jupyter lab
+Launch Jupyter directly through uv so the correct interpreter is used:
+```bash
+uv run jupyter lab
 # or
-jupyter notebook
+uv run jupyter notebook
 ```
 Open any notebook in `notebooks/` and run cells top-to-bottom.
 
@@ -44,7 +60,7 @@ Open any notebook in `notebooks/` and run cells top-to-bottom.
   - Slides (markdown): `slides/L#.md`
   - Images: `images/*.png`
   - Data (editable corpora): `data/*.txt`
-- **Dependency Hints**: See `environment.txt`
+- **Dependency Hints**: See `pyproject.toml`
 - **Upgrade Ideas**
   - Replace co-occurrence + SVD with skip-gram/CBOW (gensim).
   - Add multi-head attention, dropout, and better scheduler in Lesson 4.
