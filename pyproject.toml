@@ -16,6 +16,8 @@ dependencies = [
     "nbconvert>=7.16.6",
     "nbformat",
     "numpy",
+    "pip>=24.3",
+    "pytest",
     "torch",
     "transformers",
 ]
