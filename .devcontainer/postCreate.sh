@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-# Ensure uv is available system-wide
+# Ensure we can find locally installed user binaries (Codespaces does not add
+# ~/.local/bin to PATH by default during provisioning)
+export PATH="${HOME}/.local/bin:${PATH}"
+
+# Ensure uv is installed for the current user
 if ! command -v uv >/dev/null 2>&1; then
-  INSTALL_CMD="sh -s -- --yes --install-dir /usr/local/bin"
-  if command -v sudo >/dev/null 2>&1; then
-    curl -LsSf https://astral.sh/uv/install.sh | sudo ${INSTALL_CMD}
-  else
-    curl -LsSf https://astral.sh/uv/install.sh | ${INSTALL_CMD}
-  fi
+  mkdir -p "${HOME}/.local/bin"
+  curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --yes
 fi
 
-# Sync the project dependencies into the managed virtual environment
+# Sync the project dependencies into the managed virtual environment (creates
+# .venv/ when missing)
 uv sync --frozen
 
 # Register the project virtual environment as a Jupyter kernel for notebooks
