@@ -45,6 +45,24 @@ All dependencies are managed with [uv](https://github.com/astral-sh/uv), which w
    - **Linux/macOS**: `source .venv/bin/activate`
    - **Windows (PowerShell)**: `.venv\Scripts\Activate.ps1`
 
+## VS Code Dev Container setup
+If you use GitHub Codespaces or the VS Code **Dev Containers** extension, this repository already includes a ready-to-go configuration under `.devcontainer/`.
+
+1. **Open the folder in a container** using the VS Code command palette (`Dev Containers: Reopen in Container`) or by creating a new Codespace.
+2. During the first create/rebuild cycle the `postCreate.sh` script runs automatically. It:
+   - Adds `~/.local/bin` to `PATH` so the freshly installed tools are discoverable.
+   - Installs `uv` for the current user (skipped when it is already present).
+   - Runs `uv sync --frozen` to materialize `.venv/` with the locked dependencies.
+   - Registers the managed virtual environment as the `Python (.venv)` Jupyter kernel.
+
+You can confirm the script ran by checking the Dev Containers log or by re-running it manually from the workspace root:
+
+```bash
+bash .devcontainer/postCreate.sh
+```
+
+The command is idempotent and safe to run again if you need to refresh the environment.
+
 ## Running
 Launch Jupyter directly through uv so the correct interpreter is used:
 ```bash
