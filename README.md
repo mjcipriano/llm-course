@@ -41,6 +41,11 @@ All dependencies are managed with [uv](https://github.com/astral-sh/uv), which w
    ```
    This installs Python (if needed) and resolves all runtime dependencies defined in `pyproject.toml` into a local `.venv/` folder.
 
+   *Slow networks (e.g., GitHub Codespaces):* increase uv's download timeout so large wheels have time to finish transferring.
+   ```bash
+   UV_HTTP_TIMEOUT=600 uv sync
+   ```
+
 ### CPU-only installs (skip the NVIDIA CUDA wheels)
 
 If you're setting things up on a machine without an NVIDIA GPU, you might notice that `uv sync` downloads several large `nvidia-*` wheels. Those come from the default Linux `torch` wheel on PyPI, which declares optional CUDA runtime packages even though they are harmless on CPU-only systems. The trade-off is disk space: together they add a few gigabytes to the environment.
@@ -48,7 +53,7 @@ If you're setting things up on a machine without an NVIDIA GPU, you might notice
 To avoid those downloads, you can tell `uv` to resolve `torch` from PyTorch's CPU-only index instead of the default GPU-enabled one:
 
 ```bash
-uv sync \
+UV_HTTP_TIMEOUT=600 uv sync \
   --default-index https://download.pytorch.org/whl/cpu \
   --index https://pypi.org/simple \
   --index-strategy unsafe-first-match
