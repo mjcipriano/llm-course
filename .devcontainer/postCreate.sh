@@ -12,7 +12,7 @@ echo "[postCreate] PATH updated to include ${HOME}/.local/bin"
 if ! command -v uv >/dev/null 2>&1; then
   echo "[postCreate] uv not found; installing via official installer"
   mkdir -p "${HOME}/.local/bin"
-  curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --yes
+  curl -LsSf https://astral.sh/uv/install.sh | sh
 else
   echo "[postCreate] uv already installed at $(command -v uv)"
 fi
