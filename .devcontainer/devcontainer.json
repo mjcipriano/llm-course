@@ -2,6 +2,9 @@
   "name": "llm-course",
   "image": "mcr.microsoft.com/devcontainers/python:3.11",
   "remoteUser": "vscode",
+  "containerEnv": {
+    "UV_HTTP_TIMEOUT": "600"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
