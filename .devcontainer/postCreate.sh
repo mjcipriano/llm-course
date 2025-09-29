@@ -8,6 +8,10 @@ echo "[postCreate] Starting environment setup for llm-course"
 export PATH="${HOME}/.local/bin:${PATH}"
 echo "[postCreate] PATH updated to include ${HOME}/.local/bin"
 
+# Give uv extra time to download large wheels when provisioning on slow networks
+export UV_HTTP_TIMEOUT="${UV_HTTP_TIMEOUT:-600}"
+echo "[postCreate] UV_HTTP_TIMEOUT set to ${UV_HTTP_TIMEOUT} seconds"
+
 # Ensure uv is installed for the current user
 if ! command -v uv >/dev/null 2>&1; then
   echo "[postCreate] uv not found; installing via official installer"
