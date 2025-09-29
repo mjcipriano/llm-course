@@ -41,6 +41,21 @@ All dependencies are managed with [uv](https://github.com/astral-sh/uv), which w
    ```
    This installs Python (if needed) and resolves all runtime dependencies defined in `pyproject.toml` into a local `.venv/` folder.
 
+### CPU-only installs (skip the NVIDIA CUDA wheels)
+
+If you're setting things up on a machine without an NVIDIA GPU, you might notice that `uv sync` downloads several large `nvidia-*` wheels. Those come from the default Linux `torch` wheel on PyPI, which declares optional CUDA runtime packages even though they are harmless on CPU-only systems. The trade-off is disk space: together they add a few gigabytes to the environment.
+
+To avoid those downloads, you can tell `uv` to resolve `torch` from PyTorch's CPU-only index instead of the default GPU-enabled one:
+
+```bash
+uv sync \
+  --default-index https://download.pytorch.org/whl/cpu \
+  --index https://pypi.org/simple \
+  --index-strategy unsafe-first-match
+```
+
+The CPU channel still provides the standard `torch` API, just without the CUDA wheels. Keeping `https://pypi.org/simple` as an additional index ensures the rest of the dependencies continue to install normally.
+
 3. *(Optional)* If you prefer to activate the environment manually, use:
    - **Linux/macOS**: `source .venv/bin/activate`
    - **Windows (PowerShell)**: `.venv\Scripts\Activate.ps1`
