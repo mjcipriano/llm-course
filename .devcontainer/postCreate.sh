@@ -24,7 +24,11 @@ fi
 echo "[postCreate] Resolving Python environment with uv sync"
 # Sync the project dependencies into the managed virtual environment (creates
 # .venv/ when missing)
-uv sync --frozen
+#uv sync --frozen
+UV_HTTP_TIMEOUT=600 uv sync \
+  --default-index https://download.pytorch.org/whl/cpu \
+  --index https://pypi.org/simple \
+  --index-strategy unsafe-first-match
 
 echo "[postCreate] Registering the managed virtualenv as a Jupyter kernel"
 # Register the project virtual environment as a Jupyter kernel for notebooks
